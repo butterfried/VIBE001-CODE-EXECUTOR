@@ -1,12 +1,12 @@
 # Express Code Runner for Student Validation
 
-This project allows you to run submitted code files (C++, Java, JavaScript) against prepared input/output sets for student assignment validation. Code execution is containerized using Docker/Podman for security.
+This project allows you to run submitted code files (C++, Java, JavaScript) against prepared input/output sets for student assignment validation. Code execution is containerized using Podman for security.
 
 ## Installation
 
 1. Requirements:
    - Node.js >= 14.0.0
-   - Docker or Podman
+   - Podman (container runtime)
    - VS Code (for development)
 
 2. Setup:
@@ -65,30 +65,30 @@ Each problem should have:
 
 ## Security
 
-- Code execution is containerized using Docker/Podman for isolation
+- Code execution is containerized using Podman for isolation
 - Execution time is limited to 10 seconds per submission
 - Read-only volume mounts for code and problem files
 - No network access within containers
 - No persistent storage in containers
 - All containers are removed after execution
 
-## Dev Container with Docker-in-Docker
+## Dev Container Setup
 
-This project includes a VS Code dev container setup with Docker-in-Docker support.
+This project includes a VS Code dev container setup with Podman support.
 
-- The `.devcontainer/Dockerfile` installs Docker inside the container
-- The `.devcontainer/devcontainer.json` configures the container to run with Docker privileges
+- The `.devcontainer/Dockerfile` sets up Podman in rootless mode
+- The `.devcontainer/devcontainer.json` configures the container with appropriate privileges
 
 **Usage:**
 1. Reopen the project in the dev container (VS Code will prompt you)
-2. You can run Docker commands inside the dev container terminal
-3. The Docker extension is pre-installed for convenience
+2. The container will initialize Podman in rootless mode
+3. You can run Podman commands directly in the dev container terminal
 
 ## Container Images
 
-The system uses the following Docker images for code execution:
+The system uses the following container images for code execution:
 - C++: `docker.io/library/gcc:latest`
 - Java: `docker.io/library/openjdk:latest`
 - JavaScript: `docker.io/library/node:latest`
 
-Images are pulled automatically if not present locally.
+Images are pulled automatically if not present locally. Note that while we use images from Docker Hub, they are run using Podman.

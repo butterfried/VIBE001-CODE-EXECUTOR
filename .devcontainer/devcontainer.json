@@ -1,0 +1,23 @@
+{
+  "name": "Dev Container with Podman",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "runArgs": [
+    "--privileged"
+  ],
+  "settings": {},
+  "extensions": [
+    "kilocode.kilo-code"
+  ],
+  "postCreateCommand": "podman system service -t 0 --time=0 unix:///run/podman/podman.sock",
+  "postStartCommand": "podman system migrate",
+  "remoteUser": "vscode",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "configureZshAsDefaultShell": true,
+      "installOhMyZsh": true
+    }
+  }
+}
